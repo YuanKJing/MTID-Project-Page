@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos — ICLR 2025.">
+  <title>MTID | ICLR 2025</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="topbar" aria-label="Main navigation">
+    <a class="brand" href="#top"><span>MT</span>ID</a>
+    <div class="navlinks">
+      <a href="#abstract">Abstract</a><a href="#method">Method</a>
+      <a href="#results">Results</a><a href="#ablations">Ablations</a><a href="#bibtex">BibTeX</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero shell" id="top">
+      <p class="eyebrow">Procedure planning from visual endpoints</p>
+      <h1><span>Masked Temporal Interpolation Diffusion</span> for Procedure Planning in Instructional Videos</h1>
+      <div class="authors">
+        <a href="https://wiserzhou.github.io/">Yufan Zhou</a><a href="https://scholar.google.com.hk/citations?user=QZ8URKAAAAAJ">Zhaobo Qi<sup>*</sup></a>
+        <span>Lingshuai Lin</span><span>Junqi Jing</span><span>Tingting Chai</span><span>Beichen Zhang</span><span>Shuhui Wang</span><span>Weigang Zhang<sup>*</sup></span>
+      </div>
+      <div class="affiliations"><span><sup>1</sup> Harbin Institute of Technology, Weihai</span><span><sup>2</sup> Institute of Computing Technology, CAS</span><small>* Corresponding authors</small></div>
+      <div class="conference">ICLR 2025</div>
+      <div class="actions">
+        <a class="button dark" href="https://openreview.net/forum?id=HnpDHiItd2">Paper</a>
+        <a class="button dark" href="https://github.com/WiserZhou/MTID">Code</a>
+        <a class="button light" href="https://arxiv.org/abs/2507.03393">ArXiv</a>
+      </div>
+      <figure class="hero-figure"><span>MTID overview</span><img src="https://raw.githubusercontent.com/WiserZhou/MTID/main/figure/architecture1.png" alt="Overview of MTID showing task supervision, temporal interpolation, and masked denoising"></figure>
+      <p class="caption">From start and goal observations, MTID interpolates latent mid-state features and injects them into a masked denoising process to recover the missing action sequence.</p>
+    </section>
+
+    <section class="section shell" id="abstract">
+      <p class="eyebrow">Why MTID?</p><h2>Seeing the states between the states.</h2>
+      <div class="abstract-grid">
+        <p class="tldr"><strong>TL;DR</strong>MTID replaces coarse text-only guidance with temporally interpolated visual features, enabling coherent and task-aligned procedure planning.</p>
+        <div><p>Procedure planning infers a sequence of actions that transforms an observed start state into a desired goal state. Existing approaches largely rely on task labels, event descriptions, or knowledge graphs; these signals cannot fully describe the visual evolution hidden between the endpoints.</p><p>MTID learns that evolution directly in latent space. Its intermediate visual features supervise an end-to-end diffusion planner, while an action-aware mask and task-adaptive proximity objective suppress irrelevant predictions.</p></div>
+      </div>
+    </section>
+
+    <section class="section shell compact" id="method">
+      <p class="eyebrow">Method</p><h2>Three components, one end-to-end planner.</h2>
+      <p class="lede">MTID decomposes procedure planning into task recognition, latent mid-state reconstruction, and conditional action generation.</p>
+      <div class="cards">
+        <article><b>01</b><h3>Task supervision</h3><p>A transformer classifier reads start and goal observations and predicts the task class that constrains planning.</p></article>
+        <article><b>02</b><h3>Temporal interpolation</h3><p>A learnable interpolation matrix reconstructs intermediate latent visual features as mid-state supervision.</p></article>
+        <article><b>03</b><h3>Masked diffusion</h3><p>Action-aware projection narrows the search space while DDIM recovers a coherent action sequence efficiently.</p></article>
+      </div>
+      <div class="core-panel"><div><span>Core module</span><h3>Latent space temporal interpolation</h3><p>The observation encoder maps the endpoints to latent features. A learnable coefficient generates intermediate representations, which transformer blocks refine into temporally consistent visual supervision.</p><ul><li>Task-adaptive interpolation ratio</li><li>Transformer refinement with positional encoding</li><li>Cross-attention injection into the U-Net planner</li></ul></div><div class="flow"><i>V<sub>s</sub></i><em>Observation<br>Encoder</em><strong>Learnable<br>Interpolation</strong><em>Transformer<br>Blocks</em><i>F<sub>1:M</sub></i></div></div>
+    </section>
+
+    <section class="results" id="results"><div class="shell">
+      <p class="eyebrow pale">Results</p><h2>Stronger planning across horizons.</h2><p class="lede pale-text">CrossTask results at a three-step prediction horizon.</p>
+      <div class="result-grid">
+        <article><span>Success Rate</span><strong>40.45<small>%</small></strong><p>+1.52 vs. strongest comparable baseline</p><div><i style="width:84%"></i><b style="width:90%"></b></div></article>
+        <article><span>mean Accuracy</span><strong>67.19<small>%</small></strong><p>+2.45 vs. strongest comparable baseline</p><div><i style="width:84%"></i><b style="width:91%"></b></div></article>
+        <article><span>mean IoU</span><strong>69.17<small>%</small></strong><p>+2.02 vs. KEPP under shared setting</p><div><i style="width:85%"></i><b style="width:91%"></b></div></article>
+      </div>
+    </div></section>
+
+    <section class="section shell benchmarks"><p class="eyebrow">Benchmarks</p><h2>Evaluated at three scales.</h2><div class="dataset-grid"><article><span>CrossTask</span><strong>2,750</strong><p>videos · 18 tasks · 105 actions</p></article><article><span>COIN</span><strong>11,827</strong><p>videos · 180 tasks · 778 actions</p></article><article><span>NIV</span><strong>150</strong><p>videos · 5 tasks · 9.5 actions/video</p></article></div></section>
+
+    <section class="section shell" id="ablations"><p class="eyebrow">Ablations</p><h2>Each idea contributes.</h2><div class="ablation"><div class="chart"><div><span>PDPP baseline</span><i style="width:45%"></i><b>37.20</b></div><div><span>+ Interpolation</span><i style="width:68%"></i><b>39.03</b></div><div><span>+ Mask projection</span><i style="width:78%"></i><b>39.64</b></div><div><span>Full MTID</span><i class="hit" style="width:90%"></i><b>40.45</b></div></div><div><h3>Full model: 40.45 SR</h3><p>Interpolation supplies missing temporal context, masked projection filters task-irrelevant actions, and the proximity objective emphasizes the observed endpoints. Together they improve Success Rate by 3.25 points over PDPP.</p><div class="pills"><span>+3.25 SR</span><span>+2.52 mAcc</span><span>+2.60 mIoU</span></div></div></div></section>
+
+    <section class="citation" id="bibtex"><div class="shell citation-grid"><div><p class="eyebrow pale">Citation</p><h2>Build on MTID.</h2><p>If this work helps your research, please cite our ICLR 2025 paper.</p></div><div class="code"><button id="copy">Copy BibTeX</button><pre><code id="bib">@inproceedings{zhou2025masked,
+  title={Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos},
+  author={Yufan Zhou and Zhaobo Qi and Lingshuai Lin and Junqi Jing and Tingting Chai and Beichen Zhang and Shuhui Wang and Weigang Zhang},
+  booktitle={International Conference on Learning Representations},
+  year={2025}
+}</code></pre></div></div></section>
+  </main>
+
+  <footer><div class="shell"><a class="brand" href="#top"><span>MT</span>ID</a><p>Published at ICLR 2025 · Harbin Institute of Technology, Weihai</p><a href="https://github.com/WiserZhou/MTID">GitHub ↗</a></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
