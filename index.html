@@ -2,80 +2,625 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos — ICLR 2025.">
-  <title>MTID | ICLR 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MTID learns latent visual mid-state guidance between start and goal observations to guide diffusion-based procedure planning. ICLR 2025.">
+  <meta name="theme-color" content="#0f6f73">
+  <meta name="color-scheme" content="light">
+  <meta name="citation_title" content="Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos">
+  <meta name="citation_author" content="Yufan Zhou">
+  <meta name="citation_author" content="Zhaobo Qi">
+  <meta name="citation_author" content="Lingshuai Lin">
+  <meta name="citation_author" content="Junqi Jing">
+  <meta name="citation_author" content="Tingting Chai">
+  <meta name="citation_author" content="Beichen Zhang">
+  <meta name="citation_author" content="Shuhui Wang">
+  <meta name="citation_author" content="Weigang Zhang">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="The Thirteenth International Conference on Learning Representations">
+  <meta name="citation_pdf_url" content="https://openreview.net/pdf?id=HnpDHiItd2">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="MTID">
+  <meta property="og:title" content="MTID — Masked Temporal Interpolation Diffusion">
+  <meta property="og:description" content="Latent visual mid-state guidance for diffusion-based procedure planning. Published at ICLR 2025.">
+  <meta property="og:url" content="https://yuankjing.github.io/MTID-Project-Page/">
+  <meta property="og:image" content="https://yuankjing.github.io/MTID-Project-Page/assets/og-mtid.png">
+  <meta property="og:image:alt" content="MTID, Masked Temporal Interpolation Diffusion, ICLR 2025">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MTID — Masked Temporal Interpolation Diffusion">
+  <meta name="twitter:description" content="Latent visual mid-state guidance for diffusion-based procedure planning.">
+  <meta name="twitter:image" content="https://yuankjing.github.io/MTID-Project-Page/assets/og-mtid.png">
+
+  <link rel="canonical" href="https://yuankjing.github.io/MTID-Project-Page/">
   <link rel="stylesheet" href="styles.css">
+  <title>MTID | ICLR 2025</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "name": "Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos",
+    "headline": "Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos",
+    "datePublished": "2025",
+    "url": "https://yuankjing.github.io/MTID-Project-Page/",
+    "sameAs": [
+      "https://openreview.net/forum?id=HnpDHiItd2",
+      "https://arxiv.org/abs/2507.03393"
+    ],
+    "author": [
+      {"@type": "Person", "name": "Yufan Zhou"},
+      {"@type": "Person", "name": "Zhaobo Qi"},
+      {"@type": "Person", "name": "Lingshuai Lin"},
+      {"@type": "Person", "name": "Junqi Jing"},
+      {"@type": "Person", "name": "Tingting Chai"},
+      {"@type": "Person", "name": "Beichen Zhang"},
+      {"@type": "Person", "name": "Shuhui Wang"},
+      {"@type": "Person", "name": "Weigang Zhang"}
+    ]
+  }
+  </script>
 </head>
 <body>
-  <nav class="topbar" aria-label="Main navigation">
-    <a class="brand" href="#top"><span>MT</span>ID</a>
-    <div class="navlinks">
-      <a href="#abstract">Abstract</a><a href="#method">Method</a>
-      <a href="#results">Results</a><a href="#ablations">Ablations</a><a href="#bibtex">BibTeX</a>
-    </div>
-  </nav>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <main>
-    <section class="hero shell" id="top">
-      <p class="eyebrow">Procedure planning from visual endpoints</p>
-      <h1><span>Masked Temporal Interpolation Diffusion</span> for Procedure Planning in Instructional Videos</h1>
-      <div class="authors">
-        <a href="https://wiserzhou.github.io/">Yufan Zhou</a><a href="https://scholar.google.com.hk/citations?user=QZ8URKAAAAAJ">Zhaobo Qi<sup>*</sup></a>
-        <span>Lingshuai Lin</span><span>Junqi Jing</span><span>Tingting Chai</span><span>Beichen Zhang</span><span>Shuhui Wang</span><span>Weigang Zhang<sup>*</sup></span>
+  <header class="site-header" id="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="MTID home">
+        <span aria-hidden="true">MT</span>ID
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#ablations">Ablations</a>
+        <a href="#resources">Resources</a>
+        <a class="nav-paper" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer" aria-label="Open the paper in a new tab">Paper <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="affiliations"><span><sup>1</sup> Harbin Institute of Technology, Weihai</span><span><sup>2</sup> Institute of Computing Technology, CAS</span><small>* Corresponding authors</small></div>
-      <div class="conference">ICLR 2025</div>
-      <div class="actions">
-        <a class="button dark" href="https://openreview.net/forum?id=HnpDHiItd2">Paper</a>
-        <a class="button dark" href="https://github.com/WiserZhou/MTID">Code</a>
-        <a class="button light" href="https://arxiv.org/abs/2507.03393">ArXiv</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="paper-title">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+
+      <div class="shell hero-inner">
+        <p class="paper-label"><span>ICLR 2025</span> Procedure planning from visual endpoints</p>
+
+        <h1 id="paper-title">
+          <span>Masked Temporal Interpolation Diffusion</span>
+          <small>for Procedure Planning in Instructional Videos</small>
+        </h1>
+
+        <p class="hero-thesis">
+          MTID learns latent visual mid-state guidance between a start and goal observation,
+          then conditions a diffusion planner to predict the intervening discrete action sequence.
+        </p>
+
+        <div class="authors" aria-label="Paper authors">
+          <a href="https://wiserzhou.github.io/">Yufan Zhou<sup>1</sup></a>
+          <a href="https://scholar.google.com.hk/citations?user=QZ8URKAAAAAJ">Zhaobo Qi<sup>1,*</sup></a>
+          <a href="https://github.com/lls2003">Lingshuai Lin<sup>1</sup></a>
+          <a href="https://yuankjing.github.io/JunqiJing/">Junqi Jing<sup>1</sup></a>
+          <span>Tingting Chai<sup>1</sup></span>
+          <span>Beichen Zhang<sup>1</sup></span>
+          <span>Shuhui Wang<sup>2</sup></span>
+          <span>Weigang Zhang<sup>1,*</sup></span>
+        </div>
+
+        <div class="affiliations">
+          <span><sup>1</sup> Harbin Institute of Technology, Weihai</span>
+          <span><sup>2</sup> Key Laboratory of Intelligent Information Processing, Institute of Computing Technology, Chinese Academy of Sciences</span>
+          <small>* Corresponding authors</small>
+        </div>
+
+        <div class="hero-actions" aria-label="Paper links">
+          <a class="button button-primary" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer">Read paper <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/YuanKJing/_MTID_" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="https://arxiv.org/abs/2507.03393">arXiv</a>
+        </div>
+
+        <p class="scope-note">
+          <strong>Model output:</strong> dataset-defined action labels, not generated video frames.
+          No annotated intermediate visual states are required.
+        </p>
+
+        <figure class="overview-figure" data-reveal>
+          <a class="figure-link" href="assets/mtid-overview.png" target="_blank" rel="noopener noreferrer" aria-label="Open the MTID overview figure at full resolution">
+            <img src="assets/mtid-overview.png" width="2400" height="1568" alt="MTID overview with endpoint task prediction, latent temporal interpolation, masked action-noise initialization, and temporal U-Net denoising." fetchpriority="high">
+            <span>Open full resolution <span aria-hidden="true">↗</span></span>
+          </a>
+          <figcaption>
+            <strong>MTID overview.</strong> Endpoint observations condition task prediction and latent interpolation.
+            The task mask restricts action-noise initialization before DDIM denoising predicts the full sequence.
+          </figcaption>
+        </figure>
       </div>
-      <figure class="hero-figure"><span>MTID overview</span><img src="https://raw.githubusercontent.com/WiserZhou/MTID/main/figure/architecture1.png" alt="Overview of MTID showing task supervision, temporal interpolation, and masked denoising"></figure>
-      <p class="caption">From start and goal observations, MTID interpolates latent mid-state features and injects them into a masked denoising process to recover the missing action sequence.</p>
     </section>
 
-    <section class="section shell" id="abstract">
-      <p class="eyebrow">Why MTID?</p><h2>Seeing the states between the states.</h2>
-      <div class="abstract-grid">
-        <p class="tldr"><strong>TL;DR</strong>MTID replaces coarse text-only guidance with temporally interpolated visual features, enabling coherent and task-aligned procedure planning.</p>
-        <div><p>Procedure planning infers a sequence of actions that transforms an observed start state into a desired goal state. Existing approaches largely rely on task labels, event descriptions, or knowledge graphs; these signals cannot fully describe the visual evolution hidden between the endpoints.</p><p>MTID learns that evolution directly in latent space. Its intermediate visual features supervise an end-to-end diffusion planner, while an action-aware mask and task-adaptive proximity objective suppress irrelevant predictions.</p></div>
+    <section class="section" id="overview" aria-labelledby="overview-title">
+      <div class="shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Problem &amp; insight</p>
+            <h2 id="overview-title">Reasoning through what the camera never shows.</h2>
+          </div>
+          <p>
+            Procedure planning must infer the discrete actions connecting a visual start state
+            <em>V<sub>s</sub></em> to a goal state <em>V<sub>g</sub></em>, even though every state in between is unobserved.
+          </p>
+        </div>
+
+        <div class="insight-grid">
+          <article class="insight-card" data-reveal>
+            <p class="card-index">01 · Prior supervision</p>
+            <h3>Useful semantics, limited visual detail</h3>
+            <p>
+              Earlier approaches often construct intermediate guidance from task labels, events,
+              graphs, or language. These signals help identify what should happen, but describe less
+              of the visual evolution between the endpoints.
+            </p>
+          </article>
+
+          <article class="insight-card insight-card-accent" data-reveal>
+            <p class="card-index">02 · MTID</p>
+            <h3>Visual-level guidance in latent space</h3>
+            <p>
+              MTID generates learnable latent features between the encoded endpoints, refines their
+              temporal dependencies, and injects them directly into the action planner through cross-attention.
+            </p>
+          </article>
+        </div>
+
+        <div class="contribution-grid" aria-label="Core contributions">
+          <article data-reveal>
+            <span class="contribution-mark" aria-hidden="true">I</span>
+            <div>
+              <h3>Latent mid-state guidance</h3>
+              <p>Intermediate features are learned from the two observed endpoints without synthesizing pixels.</p>
+            </div>
+          </article>
+          <article data-reveal>
+            <span class="contribution-mark" aria-hidden="true">II</span>
+            <div>
+              <h3>Task-aware initialization</h3>
+              <p>The predicted task restricts initial action noise to the associated action vocabulary.</p>
+            </div>
+          </article>
+          <article data-reveal>
+            <span class="contribution-mark" aria-hidden="true">III</span>
+            <div>
+              <h3>Endpoint-aware objective</h3>
+              <p>A weighted masked loss emphasizes actions near the observed states and discourages irrelevant predictions.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="section shell compact" id="method">
-      <p class="eyebrow">Method</p><h2>Three components, one end-to-end planner.</h2>
-      <p class="lede">MTID decomposes procedure planning into task recognition, latent mid-state reconstruction, and conditional action generation.</p>
-      <div class="cards">
-        <article><b>01</b><h3>Task supervision</h3><p>A transformer classifier reads start and goal observations and predicts the task class that constrains planning.</p></article>
-        <article><b>02</b><h3>Temporal interpolation</h3><p>A learnable interpolation matrix reconstructs intermediate latent visual features as mid-state supervision.</p></article>
-        <article><b>03</b><h3>Masked diffusion</h3><p>Action-aware projection narrows the search space while DDIM recovers a coherent action sequence efficiently.</p></article>
+    <section class="section section-tinted" id="method" aria-labelledby="method-title">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Method</p>
+          <h2 id="method-title">Three modules. Two training stages.</h2>
+          <p class="lede">
+            The task classifier is trained first. The latent interpolation module and diffusion planner
+            are then optimized together, so the generated guidance adapts to action reasoning.
+          </p>
+        </div>
+
+        <ol class="method-steps">
+          <li data-reveal>
+            <div class="step-number" aria-hidden="true">01</div>
+            <div>
+              <p class="step-label">Task prediction</p>
+              <h3>Identify the task from both endpoints.</h3>
+              <p>
+                A Transformer classifier predicts the task from the start and goal observations.
+                The class conditions planning and defines the task-specific action mask.
+              </p>
+            </div>
+          </li>
+          <li data-reveal>
+            <div class="step-number" aria-hidden="true">02</div>
+            <div>
+              <p class="step-label">Latent temporal interpolation</p>
+              <h3>Construct visual guidance between states.</h3>
+              <p>
+                An observation encoder maps the endpoints to <em>L<sub>s</sub></em> and <em>L<sub>g</sub></em>.
+                Learnable interpolation weights generate intermediate features, which Transformer blocks refine.
+              </p>
+              <p class="equation" aria-label="I sub j equals one minus phi sub j times L sub s plus phi sub j times L sub g">
+                I<sub>j</sub> = (1 − φ<sub>j</sub>)L<sub>s</sub> + φ<sub>j</sub>L<sub>g</sub>
+              </p>
+            </div>
+          </li>
+          <li data-reveal>
+            <div class="step-number" aria-hidden="true">03</div>
+            <div>
+              <p class="step-label">Masked diffusion planning</p>
+              <h3>Restrict first, then denoise jointly.</h3>
+              <p>
+                The task mask is applied to the initial action noise—not at every denoising iteration.
+                DDIM then denoises all <em>T</em> action steps jointly in a temporal U-Net.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <details class="architecture-details" data-reveal>
+          <summary>
+            <span>
+              <small>Architecture details</small>
+              See how interpolation and cross-attention connect
+            </span>
+            <span class="summary-icon" aria-hidden="true">+</span>
+          </summary>
+
+          <div class="figure-stack">
+            <figure>
+              <a class="figure-link" href="assets/latent-temporal-interpolation.png" target="_blank" rel="noopener noreferrer" aria-label="Open the latent temporal interpolation diagram at full resolution">
+                <img src="assets/latent-temporal-interpolation.png" width="3000" height="1432" loading="lazy" alt="Latent temporal interpolation module with endpoint encoding, learnable interpolation weights, and Transformer refinement.">
+                <span>Open full resolution <span aria-hidden="true">↗</span></span>
+              </a>
+              <figcaption>
+                <strong>Latent temporal interpolation.</strong> Encoded endpoints are mixed with learnable
+                weights and refined into <em>F<sub>1:M</sub></em>.
+              </figcaption>
+            </figure>
+
+            <figure>
+              <a class="figure-link" href="assets/residual-temporal-cross-attention-block.png" target="_blank" rel="noopener noreferrer" aria-label="Open the cross-attention residual temporal block diagram at full resolution">
+                <img src="assets/residual-temporal-cross-attention-block.png" width="3000" height="1392" loading="lazy" alt="Residual temporal block fusing a timestep embedding and refined latent feature through cross-attention.">
+                <span>Open full resolution <span aria-hidden="true">↗</span></span>
+              </a>
+              <figcaption>
+                <strong>Cross-attention injection.</strong> Refined latent features condition residual
+                temporal blocks throughout the U-Net.
+              </figcaption>
+            </figure>
+          </div>
+        </details>
       </div>
-      <div class="core-panel"><div><span>Core module</span><h3>Latent space temporal interpolation</h3><p>The observation encoder maps the endpoints to latent features. A learnable coefficient generates intermediate representations, which transformer blocks refine into temporally consistent visual supervision.</p><ul><li>Task-adaptive interpolation ratio</li><li>Transformer refinement with positional encoding</li><li>Cross-attention injection into the U-Net planner</li></ul></div><div class="flow"><i>V<sub>s</sub></i><em>Observation<br>Encoder</em><strong>Learnable<br>Interpolation</strong><em>Transformer<br>Blocks</em><i>F<sub>1:M</sub></i></div></div>
     </section>
 
-    <section class="results" id="results"><div class="shell">
-      <p class="eyebrow pale">Results</p><h2>Stronger planning across horizons.</h2><p class="lede pale-text">CrossTask results at a three-step prediction horizon.</p>
-      <div class="result-grid">
-        <article><span>Success Rate</span><strong>40.45<small>%</small></strong><p>+1.52 vs. strongest comparable baseline</p><div><i style="width:84%"></i><b style="width:90%"></b></div></article>
-        <article><span>mean Accuracy</span><strong>67.19<small>%</small></strong><p>+2.45 vs. strongest comparable baseline</p><div><i style="width:84%"></i><b style="width:91%"></b></div></article>
-        <article><span>mean IoU</span><strong>69.17<small>%</small></strong><p>+2.02 vs. KEPP under shared setting</p><div><i style="width:85%"></i><b style="width:91%"></b></div></article>
+    <section class="results-section" id="results" aria-labelledby="results-title">
+      <div class="shell">
+        <div class="section-heading results-heading" data-reveal>
+          <p class="eyebrow eyebrow-light">Selected results</p>
+          <h2 id="results-title">Strong where the comparison is direct.</h2>
+          <p class="lede">
+            Values are percentage points. CrossTask uses HowTo100M features under the PDPP setting
+            for the dagger-marked rows in the paper’s main table.
+          </p>
+        </div>
+
+        <div class="headline-results">
+          <article data-reveal>
+            <p>CrossTask · T=3 · SR</p>
+            <strong>40.45</strong>
+            <span><b>+1.52</b> over SCHEMA in Table 1</span>
+          </article>
+          <article data-reveal>
+            <p>CrossTask · T=3 · mAcc</p>
+            <strong>67.19</strong>
+            <span><b>+2.45</b> over KEPP in Table 1</span>
+          </article>
+          <article data-reveal>
+            <p>CrossTask · main table</p>
+            <strong>3</strong>
+            <span>best SR results across <b>T=3–5</b></span>
+          </article>
+        </div>
+
+        <div class="results-grid">
+          <article class="table-panel" data-reveal>
+            <div class="panel-heading">
+              <div>
+                <p class="panel-kicker">CrossTask</p>
+                <h3>Success Rate across horizons</h3>
+              </div>
+              <span>Higher is better</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">CrossTask Success Rate comparison across prediction horizons</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Method</th>
+                    <th scope="col">T=3</th>
+                    <th scope="col">T=4</th>
+                    <th scope="col">T=5</th>
+                    <th scope="col">T=6</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">PDPP</th><td>37.20</td><td>21.48</td><td>13.45</td><td>8.41</td></tr>
+                  <tr><th scope="row">KEPP</th><td>38.12</td><td>24.15</td><td>14.20</td><td>9.27</td></tr>
+                  <tr><th scope="row">SCHEMA</th><td>38.93</td><td>24.50</td><td>14.75</td><td class="best">10.53</td></tr>
+                  <tr class="mtid-row"><th scope="row">MTID</th><td class="best">40.45</td><td class="best">24.76</td><td class="best">15.26</td><td>10.30</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">
+              MTID leads at T=3–5. At T=6, SCHEMA reports 10.53 versus MTID’s 10.30.
+            </p>
+          </article>
+
+          <article class="cross-dataset-panel" data-reveal>
+            <div class="panel-heading">
+              <div>
+                <p class="panel-kicker">COIN &amp; NIV · KEPP setting</p>
+                <h3>Best SR and mAcc at T=4</h3>
+              </div>
+            </div>
+
+            <div class="dataset-result">
+              <div>
+                <span>COIN</span>
+                <small>180 tasks</small>
+              </div>
+              <p><strong>22.74</strong> SR</p>
+              <p><strong>49.90</strong> mAcc</p>
+            </div>
+            <div class="dataset-result">
+              <div>
+                <span>NIV</span>
+                <small>5 tasks</small>
+              </div>
+              <p><strong>24.89</strong> SR</p>
+              <p><strong>44.54</strong> mAcc</p>
+            </div>
+
+            <p class="table-note">
+              mIoU is reported in the paper for completeness, but MTID is not the leading method on
+              mIoU in these tables; this page therefore avoids an across-the-board state-of-the-art claim.
+            </p>
+          </article>
+        </div>
+
+        <div class="same-setting" data-reveal>
+          <div>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
+            <strong>+3.25 <small>SR</small></strong>
+          </div>
+          <div>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
+            <strong>+2.52 <small>mAcc</small></strong>
+          </div>
+          <div>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
+            <strong>+2.60 <small>mIoU</small></strong>
+          </div>
+        </div>
       </div>
-    </div></section>
+    </section>
 
-    <section class="section shell benchmarks"><p class="eyebrow">Benchmarks</p><h2>Evaluated at three scales.</h2><div class="dataset-grid"><article><span>CrossTask</span><strong>2,750</strong><p>videos · 18 tasks · 105 actions</p></article><article><span>COIN</span><strong>11,827</strong><p>videos · 180 tasks · 778 actions</p></article><article><span>NIV</span><strong>150</strong><p>videos · 5 tasks · 9.5 actions/video</p></article></div></section>
+    <section class="section" id="ablations" aria-labelledby="ablations-title">
+      <div class="shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Ablations</p>
+            <h2 id="ablations-title">Three questions, tested separately.</h2>
+          </div>
+          <p>
+            The experiments isolate what to interpolate, when to apply the task mask, and how to
+            weight the objective. They are not presented as one cumulative ladder.
+          </p>
+        </div>
 
-    <section class="section shell" id="ablations"><p class="eyebrow">Ablations</p><h2>Each idea contributes.</h2><div class="ablation"><div class="chart"><div><span>PDPP baseline</span><i style="width:45%"></i><b>37.20</b></div><div><span>+ Interpolation</span><i style="width:68%"></i><b>39.03</b></div><div><span>+ Mask projection</span><i style="width:78%"></i><b>39.64</b></div><div><span>Full MTID</span><i class="hit" style="width:90%"></i><b>40.45</b></div></div><div><h3>Full model: 40.45 SR</h3><p>Interpolation supplies missing temporal context, masked projection filters task-irrelevant actions, and the proximity objective emphasizes the observed endpoints. Together they improve Success Rate by 3.25 points over PDPP.</p><div class="pills"><span>+3.25 SR</span><span>+2.52 mAcc</span><span>+2.60 mIoU</span></div></div></div></section>
+        <div class="ablation-grid">
+          <article class="ablation-card" data-reveal>
+            <div class="ablation-title">
+              <span>01</span>
+              <div>
+                <p>Interpolation design · T=3</p>
+                <h3>Every module contributes</h3>
+              </div>
+            </div>
+            <dl class="metric-list">
+              <div><dt>Interpolation only</dt><dd>37.86 <small>SR</small></dd></div>
+              <div><dt>+ Observation encoder</dt><dd>39.23 <small>SR</small></dd></div>
+              <div><dt>+ Transformer refinement</dt><dd>39.49 <small>SR</small></dd></div>
+              <div class="metric-best"><dt>Full stack</dt><dd>40.45 <small>SR</small></dd></div>
+            </dl>
+          </article>
 
-    <section class="citation" id="bibtex"><div class="shell citation-grid"><div><p class="eyebrow pale">Citation</p><h2>Build on MTID.</h2><p>If this work helps your research, please cite our ICLR 2025 paper.</p></div><div class="code"><button id="copy">Copy BibTeX</button><pre><code id="bib">@inproceedings{zhou2025masked,
-  title={Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos},
-  author={Yufan Zhou and Zhaobo Qi and Lingshuai Lin and Junqi Jing and Tingting Chai and Beichen Zhang and Shuhui Wang and Weigang Zhang},
-  booktitle={International Conference on Learning Representations},
-  year={2025}
-}</code></pre></div></div></section>
+          <article class="ablation-card" data-reveal>
+            <div class="ablation-title">
+              <span>02</span>
+              <div>
+                <p>Mask placement · T=3</p>
+                <h3>Initialize once—do not clamp every step</h3>
+              </div>
+            </div>
+            <dl class="metric-list">
+              <div><dt>No masked projection</dt><dd>39.17 <small>SR</small></dd></div>
+              <div class="metric-best"><dt>Mask at initialization</dt><dd>40.45 <small>SR</small></dd></div>
+              <div class="metric-warning"><dt>Mask every iteration</dt><dd>3.38 <small>SR</small></dd></div>
+            </dl>
+          </article>
+
+          <article class="ablation-card" data-reveal>
+            <div class="ablation-title">
+              <span>03</span>
+              <div>
+                <p>Training objective · T=5</p>
+                <h3>Endpoint weighting drives the gain</h3>
+              </div>
+            </div>
+            <dl class="metric-list">
+              <div><dt>MSE</dt><dd>11.89 <small>SR</small></dd></div>
+              <div><dt>+ Gradient weighting</dt><dd>15.10 <small>SR</small></dd></div>
+              <div class="metric-best"><dt>+ Task mask</dt><dd>15.26 <small>SR</small></dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <aside class="uncertainty-callout" data-reveal>
+          <div>
+            <p class="eyebrow">Long-horizon uncertainty · CrossTask T=6</p>
+            <h3>More modes, better calibrated.</h3>
+            <p>
+              Against the deterministic and noise baselines used in the paper, MTID provides the
+              strongest reported uncertainty results for this CrossTask setting.
+            </p>
+          </div>
+          <dl>
+            <div><dt>KL-Div ↓</dt><dd>1.97</dd></div>
+            <div><dt>NLL ↓</dt><dd>3.27</dd></div>
+            <div><dt>ModePrec ↑</dt><dd>22.98</dd></div>
+            <div><dt>ModeRec ↑</dt><dd>35.03</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-tinted benchmarks-section" id="benchmarks" aria-labelledby="benchmarks-title">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Benchmarks &amp; scope</p>
+          <h2 id="benchmarks-title">Evaluated across three instructional-video datasets.</h2>
+        </div>
+
+        <div class="benchmark-grid">
+          <article data-reveal>
+            <div><span>CrossTask</span><strong>2,750</strong><small>videos</small></div>
+            <ul>
+              <li>18 tasks</li>
+              <li>105 action labels</li>
+              <li>7.6 average actions per video</li>
+            </ul>
+          </article>
+          <article data-reveal>
+            <div><span>COIN</span><strong>11,827</strong><small>videos</small></div>
+            <ul>
+              <li>180 tasks</li>
+              <li>778 step types</li>
+              <li>3.6 average actions per video</li>
+            </ul>
+          </article>
+          <article data-reveal>
+            <div><span>NIV</span><strong>150</strong><small>videos</small></div>
+            <ul>
+              <li>5 tasks</li>
+              <li>9.5 average actions per video</li>
+              <li>Longer instructional sequences</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="scope-grid">
+          <article data-reveal>
+            <p class="card-index">Evaluation protocol</p>
+            <h3>Per-task 70 / 30 split</h3>
+            <p>
+              Videos are randomly split into 70% training and 30% testing within each task.
+              Results measure in-distribution procedure planning rather than unseen-task generalization.
+            </p>
+          </article>
+          <article data-reveal>
+            <p class="card-index">Known dependency</p>
+            <h3>Task errors can propagate</h3>
+            <p>
+              Planning depends on the predicted task and dataset-specific action vocabulary.
+              A task-class mismatch can therefore affect both conditioning and the action mask.
+            </p>
+          </article>
+          <article data-reveal>
+            <p class="card-index">Output boundary</p>
+            <h3>Action labels, not robot control</h3>
+            <p>
+              MTID predicts discrete benchmark actions from endpoint features. It is not a
+              video-generation model, deployed robot policy, or real-time control system.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section resources-section" id="resources" aria-labelledby="resources-title">
+      <div class="shell">
+        <div class="section-heading split-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Resources</p>
+            <h2 id="resources-title">Paper, code, and data.</h2>
+          </div>
+          <p>Everything needed to read the work, inspect the implementation, and prepare the benchmark features.</p>
+        </div>
+
+        <div class="resource-grid">
+          <a href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Paper</span>
+            <strong>OpenReview</strong>
+            <small>Peer-reviewed ICLR 2025 paper</small>
+            <i aria-hidden="true">↗</i>
+          </a>
+          <a href="https://github.com/YuanKJing/_MTID_" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Code</span>
+            <strong>PyTorch implementation</strong>
+            <small>Co-author maintained repository</small>
+            <i aria-hidden="true">↗</i>
+          </a>
+          <a href="https://huggingface.co/datasets/WiserZhou/ProcedurePlanning/tree/main" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Data</span>
+            <strong>Processed features</strong>
+            <small>CrossTask, COIN, and NIV</small>
+            <i aria-hidden="true">↗</i>
+          </a>
+          <a href="https://github.com/WiserZhou/MTID" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Primary release</span>
+            <strong>Paper-referenced code</strong>
+            <small>Implementation linked in the manuscript</small>
+            <i aria-hidden="true">↗</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="citation-section" id="citation" aria-labelledby="citation-title">
+      <div class="shell citation-grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow-light">Citation</p>
+          <h2 id="citation-title">Build on MTID.</h2>
+          <p>If this work supports your research, please cite the ICLR 2025 paper.</p>
+        </div>
+
+        <div class="code-block" data-reveal>
+          <div class="code-toolbar">
+            <span>BibTeX</span>
+            <button id="copy-bibtex" type="button" aria-describedby="copy-status">Copy</button>
+            <span class="sr-only" id="copy-status" aria-live="polite"></span>
+          </div>
+          <pre tabindex="0"><code id="bibtex">@inproceedings{zhou2025masked,
+  title     = {Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos},
+  author    = {Yufan Zhou and Zhaobo Qi and Lingshuai Lin and Junqi Jing and Tingting Chai and Beichen Zhang and Shuhui Wang and Weigang Zhang},
+  booktitle = {The Thirteenth International Conference on Learning Representations},
+  year      = {2025},
+  url       = {https://openreview.net/forum?id=HnpDHiItd2}
+}</code></pre>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer><div class="shell"><a class="brand" href="#top"><span>MT</span>ID</a><p>Published at ICLR 2025 · Harbin Institute of Technology, Weihai</p><a href="https://github.com/WiserZhou/MTID">GitHub ↗</a></div></footer>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="brand" href="#top" aria-label="Back to the top"><span aria-hidden="true">MT</span>ID</a>
+      <p>Masked Temporal Interpolation Diffusion · ICLR 2025</p>
+      <p>© <span id="year">2025</span> MTID authors</p>
+    </div>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
