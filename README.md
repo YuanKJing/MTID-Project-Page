@@ -7,7 +7,7 @@ Official project website for:
 
 - [Live project page](https://yuankjing.github.io/MTID-Project-Page/)
 - [Paper](https://openreview.net/forum?id=HnpDHiItd2)
-- [Code](https://github.com/WiserZhou/MTID)
+- [Code](https://github.com/YuanKJing/_MTID_)
 - [Processed data](https://huggingface.co/datasets/WiserZhou/ProcedurePlanning/tree/main)
 
 ## Local preview
@@ -19,16 +19,6 @@ python -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
-
-## Design and assets
-
-The interface follows an academic Swiss-modernist system: an institutional
-navy palette, a restrained citation-gold accent, an editorial grid, and subtle
-motion with reduced-motion support. Paper figures use WebP for page delivery
-and retain their original PNG files as full-resolution fallbacks.
-
-Crimson Pro and Atkinson Hyperlegible are self-hosted under their respective
-SIL Open Font License files in `assets/fonts/`.
 
 ## Deployment
 

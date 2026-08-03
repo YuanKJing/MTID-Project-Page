@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="MTID learns latent visual mid-state guidance between start and goal observations to guide diffusion-based procedure planning. ICLR 2025.">
-  <meta name="theme-color" content="#1e3a5f">
+  <meta name="theme-color" content="#0f6f73">
   <meta name="color-scheme" content="light">
   <meta name="citation_title" content="Masked Temporal Interpolation Diffusion for Procedure Planning in Instructional Videos">
   <meta name="citation_author" content="Yufan Zhou">
@@ -34,7 +34,6 @@
   <meta name="twitter:image" content="https://yuankjing.github.io/MTID-Project-Page/assets/og-mtid.png">
 
   <link rel="canonical" href="https://yuankjing.github.io/MTID-Project-Page/">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <title>MTID | ICLR 2025</title>
 
@@ -48,8 +47,7 @@
     "url": "https://yuankjing.github.io/MTID-Project-Page/",
     "sameAs": [
       "https://openreview.net/forum?id=HnpDHiItd2",
-      "https://arxiv.org/abs/2507.03393",
-      "https://github.com/WiserZhou/MTID"
+      "https://arxiv.org/abs/2507.03393"
     ],
     "author": [
       {"@type": "Person", "name": "Yufan Zhou"},
@@ -67,25 +65,10 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <svg class="icon-sprite" aria-hidden="true">
-    <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-    </symbol>
-    <symbol id="icon-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8M8 17h6"></path>
-    </symbol>
-    <symbol id="icon-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"></path>
-    </symbol>
-    <symbol id="icon-data" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"></path>
-    </symbol>
-  </svg>
-
   <header class="site-header" id="site-header">
     <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="MTID home">
-        <span aria-hidden="true">MT</span>ID <small>ICLR 2025</small>
+        <span aria-hidden="true">MT</span>ID
       </a>
 
       <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
@@ -95,112 +78,66 @@
       </button>
 
       <div class="nav-links" id="nav-links">
+        <a href="#overview">Overview</a>
         <a href="#method">Method</a>
         <a href="#results">Results</a>
-        <a href="#scope">Scope</a>
+        <a href="#ablations">Ablations</a>
         <a href="#resources">Resources</a>
-        <a href="#citation">Citation</a>
-        <a class="nav-paper" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer" aria-label="Open the paper in a new tab">Paper <svg class="icon" aria-hidden="true"><use href="#icon-external"></use></svg></a>
+        <a class="nav-paper" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer" aria-label="Open the paper in a new tab">Paper <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
   </header>
 
   <main id="main-content">
     <section class="hero" id="top" aria-labelledby="paper-title">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+
       <div class="shell hero-inner">
-        <div class="hero-meta-row">
-          <p class="paper-label"><span>ICLR 2025</span> Procedure planning from visual endpoints</p>
-          <p class="paper-identifier">OpenReview · HnpDHiItd2</p>
+        <p class="paper-label"><span>ICLR 2025</span> Procedure planning from visual endpoints</p>
+
+        <h1 id="paper-title">
+          <span>Masked Temporal Interpolation Diffusion</span>
+          <small>for Procedure Planning in Instructional Videos</small>
+        </h1>
+
+        <p class="hero-thesis">
+          MTID learns latent visual mid-state guidance between a start and goal observation,
+          then conditions a diffusion planner to predict the intervening discrete action sequence.
+        </p>
+
+        <div class="authors" aria-label="Paper authors">
+          <a href="https://wiserzhou.github.io/">Yufan Zhou<sup>1</sup></a>
+          <a href="https://scholar.google.com.hk/citations?user=QZ8URKAAAAAJ">Zhaobo Qi<sup>1,*</sup></a>
+          <a href="https://github.com/lls2003">Lingshuai Lin<sup>1</sup></a>
+          <a href="https://yuankjing.github.io/JunqiJing/">Junqi Jing<sup>1</sup></a>
+          <span>Tingting Chai<sup>1</sup></span>
+          <span>Beichen Zhang<sup>1</sup></span>
+          <span>Shuhui Wang<sup>2</sup></span>
+          <span>Weigang Zhang<sup>1,*</sup></span>
         </div>
 
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1 id="paper-title">
-              <span>Masked Temporal Interpolation Diffusion</span>
-              <small>for Procedure Planning in Instructional Videos</small>
-            </h1>
-
-            <p class="hero-thesis">
-              MTID learns latent visual mid-state guidance between a start and goal observation,
-              then conditions a diffusion planner to predict the intervening discrete action sequence.
-            </p>
-
-            <nav class="hero-actions" aria-label="Paper links">
-              <a class="button button-primary" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer">Read paper <svg class="icon" aria-hidden="true"><use href="#icon-external"></use></svg></a>
-              <a class="button button-secondary" href="https://github.com/WiserZhou/MTID" target="_blank" rel="noopener noreferrer">View code <svg class="icon" aria-hidden="true"><use href="#icon-code"></use></svg></a>
-              <a class="button button-quiet" href="https://arxiv.org/abs/2507.03393">arXiv</a>
-            </nav>
-          </div>
-
-          <aside class="hero-facts" aria-label="Research at a glance">
-            <p class="eyebrow">Research at a glance</p>
-            <dl>
-              <div><dt>Input</dt><dd>Start + goal visual observations</dd></div>
-              <div><dt>Guidance</dt><dd>Interpolated latent mid-states</dd></div>
-              <div><dt>Output</dt><dd>Fixed-horizon discrete action labels</dd></div>
-            </dl>
-            <p><strong>No intermediate-state annotation.</strong> The model does not generate video frames or issue robot-control commands.</p>
-          </aside>
+        <div class="affiliations">
+          <span><sup>1</sup> Harbin Institute of Technology, Weihai</span>
+          <span><sup>2</sup> Key Laboratory of Intelligent Information Processing, Institute of Computing Technology, Chinese Academy of Sciences</span>
+          <small>* Corresponding authors</small>
         </div>
 
-        <div class="paper-credits">
-          <div class="authors" role="group" aria-label="Paper authors">
-            <a href="https://wiserzhou.github.io/" target="_blank" rel="noopener noreferrer">Yufan Zhou<sup>1</sup></a>
-            <a href="https://scholar.google.com.hk/citations?user=QZ8URKAAAAAJ" target="_blank" rel="noopener noreferrer">Zhaobo Qi<sup>1,*</sup></a>
-            <a href="https://github.com/lls2003" target="_blank" rel="noopener noreferrer">Lingshuai Lin<sup>1</sup></a>
-            <a href="https://yuankjing.github.io/JunqiJing/" target="_blank" rel="noopener noreferrer">Junqi Jing<sup>1</sup></a>
-            <span>Tingting Chai<sup>1</sup></span>
-            <span>Beichen Zhang<sup>1</sup></span>
-            <span>Shuhui Wang<sup>2</sup></span>
-            <span>Weigang Zhang<sup>1,*</sup></span>
-          </div>
-
-          <div class="affiliations">
-            <span><sup>1</sup> Harbin Institute of Technology, Weihai</span>
-            <span><sup>2</sup> Key Laboratory of Intelligent Information Processing, Institute of Computing Technology, Chinese Academy of Sciences</span>
-            <small>* Corresponding authors</small>
-          </div>
+        <div class="hero-actions" aria-label="Paper links">
+          <a class="button button-primary" href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer">Read paper <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/YuanKJing/_MTID_" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="https://arxiv.org/abs/2507.03393">arXiv</a>
         </div>
 
-        <section class="key-results" aria-labelledby="key-results-title">
-          <div class="key-results-heading">
-            <p id="key-results-title">Key results</p>
-            <a href="#results">See full comparison <span aria-hidden="true">↓</span></a>
-          </div>
-          <div class="key-results-grid">
-            <a href="#results">
-              <span>CrossTask · T=3 · SR</span>
-              <strong>40.45</strong>
-              <small>+1.52 over SCHEMA · Table 1</small>
-            </a>
-            <a href="#results">
-              <span>CrossTask · T=3 · mAcc</span>
-              <strong>67.19</strong>
-              <small>+2.45 over KEPP · Table 1</small>
-            </a>
-            <a href="#results">
-              <span>CrossTask · Success Rate</span>
-              <strong>T=3–5</strong>
-              <small>Highest reported values · Table 1</small>
-            </a>
-          </div>
-          <p class="key-results-caveat">
-            <strong>Comparison boundary:</strong> at T=6, SCHEMA reports 10.53 versus MTID’s 10.30.
-            MTID is not the leading method on mIoU in the COIN/NIV comparisons.
-          </p>
-        </section>
+        <p class="scope-note">
+          <strong>Model output:</strong> dataset-defined action labels, not generated video frames.
+          No annotated intermediate visual states are required.
+        </p>
 
         <figure class="overview-figure" data-reveal>
-          <div class="figure-heading">
-            <div><span>Method overview</span><strong>From endpoints to action sequence</strong></div>
-            <small>Figure 2</small>
-          </div>
           <a class="figure-link" href="assets/mtid-overview.png" target="_blank" rel="noopener noreferrer" aria-label="Open the MTID overview figure at full resolution">
-            <picture>
-              <source srcset="assets/mtid-overview.webp" type="image/webp">
-              <img src="assets/mtid-overview.png" width="2400" height="1568" alt="MTID overview with endpoint task prediction, latent temporal interpolation, masked action-noise initialization, and temporal U-Net denoising." fetchpriority="high" decoding="async">
-            </picture>
-            <span>Open full resolution <svg class="icon" aria-hidden="true"><use href="#icon-external"></use></svg></span>
+            <img src="assets/mtid-overview.png" width="2400" height="1568" alt="MTID overview with endpoint task prediction, latent temporal interpolation, masked action-noise initialization, and temporal U-Net denoising." fetchpriority="high">
+            <span>Open full resolution <span aria-hidden="true">↗</span></span>
           </a>
           <figcaption>
             <strong>MTID overview.</strong> Endpoint observations condition task prediction and latent interpolation.
@@ -215,7 +152,7 @@
         <div class="section-heading split-heading" data-reveal>
           <div>
             <p class="eyebrow">Problem &amp; insight</p>
-            <h2 id="overview-title">Problem formulation</h2>
+            <h2 id="overview-title">Reasoning through what the camera never shows.</h2>
           </div>
           <p>
             Procedure planning must infer the discrete actions connecting a visual start state
@@ -244,29 +181,29 @@
           </article>
         </div>
 
-        <ul class="contribution-grid" aria-label="Core contributions">
-          <li data-reveal>
+        <div class="contribution-grid" aria-label="Core contributions">
+          <article data-reveal>
             <span class="contribution-mark" aria-hidden="true">I</span>
             <div>
               <h3>Latent mid-state guidance</h3>
               <p>Intermediate features are learned from the two observed endpoints without synthesizing pixels.</p>
             </div>
-          </li>
-          <li data-reveal>
+          </article>
+          <article data-reveal>
             <span class="contribution-mark" aria-hidden="true">II</span>
             <div>
               <h3>Task-aware initialization</h3>
               <p>The predicted task restricts initial action noise to the associated action vocabulary.</p>
             </div>
-          </li>
-          <li data-reveal>
+          </article>
+          <article data-reveal>
             <span class="contribution-mark" aria-hidden="true">III</span>
             <div>
               <h3>Endpoint-aware objective</h3>
               <p>A weighted masked loss emphasizes actions near the observed states and discourages irrelevant predictions.</p>
             </div>
-          </li>
-        </ul>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -302,9 +239,8 @@
                 An observation encoder maps the endpoints to <em>L<sub>s</sub></em> and <em>L<sub>g</sub></em>.
                 Learnable interpolation weights generate intermediate features, which Transformer blocks refine.
               </p>
-              <p class="equation">
-                <span class="sr-only">I sub j equals one minus phi sub j times L sub s plus phi sub j times L sub g</span>
-                <span aria-hidden="true">I<sub>j</sub> = (1 − φ<sub>j</sub>)L<sub>s</sub> + φ<sub>j</sub>L<sub>g</sub></span>
+              <p class="equation" aria-label="I sub j equals one minus phi sub j times L sub s plus phi sub j times L sub g">
+                I<sub>j</sub> = (1 − φ<sub>j</sub>)L<sub>s</sub> + φ<sub>j</sub>L<sub>g</sub>
               </p>
             </div>
           </li>
@@ -333,11 +269,8 @@
           <div class="figure-stack">
             <figure>
               <a class="figure-link" href="assets/latent-temporal-interpolation.png" target="_blank" rel="noopener noreferrer" aria-label="Open the latent temporal interpolation diagram at full resolution">
-                <picture>
-                  <source srcset="assets/latent-temporal-interpolation.webp" type="image/webp">
-                  <img src="assets/latent-temporal-interpolation.png" width="3000" height="1432" loading="lazy" decoding="async" alt="Latent temporal interpolation module with endpoint encoding, learnable interpolation weights, and Transformer refinement.">
-                </picture>
-                <span>Open full resolution <svg class="icon" aria-hidden="true"><use href="#icon-external"></use></svg></span>
+                <img src="assets/latent-temporal-interpolation.png" width="3000" height="1432" loading="lazy" alt="Latent temporal interpolation module with endpoint encoding, learnable interpolation weights, and Transformer refinement.">
+                <span>Open full resolution <span aria-hidden="true">↗</span></span>
               </a>
               <figcaption>
                 <strong>Latent temporal interpolation.</strong> Encoded endpoints are mixed with learnable
@@ -347,11 +280,8 @@
 
             <figure>
               <a class="figure-link" href="assets/residual-temporal-cross-attention-block.png" target="_blank" rel="noopener noreferrer" aria-label="Open the cross-attention residual temporal block diagram at full resolution">
-                <picture>
-                  <source srcset="assets/residual-temporal-cross-attention-block.webp" type="image/webp">
-                  <img src="assets/residual-temporal-cross-attention-block.png" width="3000" height="1392" loading="lazy" decoding="async" alt="Residual temporal block fusing a timestep embedding and refined latent feature through cross-attention.">
-                </picture>
-                <span>Open full resolution <svg class="icon" aria-hidden="true"><use href="#icon-external"></use></svg></span>
+                <img src="assets/residual-temporal-cross-attention-block.png" width="3000" height="1392" loading="lazy" alt="Residual temporal block fusing a timestep embedding and refined latent feature through cross-attention.">
+                <span>Open full resolution <span aria-hidden="true">↗</span></span>
               </a>
               <figcaption>
                 <strong>Cross-attention injection.</strong> Refined latent features condition residual
@@ -367,12 +297,29 @@
       <div class="shell">
         <div class="section-heading results-heading" data-reveal>
           <p class="eyebrow eyebrow-light">Selected results</p>
-          <h2 id="results-title">Quantitative results</h2>
+          <h2 id="results-title">Strong where the comparison is direct.</h2>
           <p class="lede">
-            Values are percentage points. T is the planned action-sequence length; SR, mAcc, and mIoU
-            denote Success Rate, mean Accuracy, and mean Intersection-over-Union. CrossTask uses
-            HowTo100M features under the PDPP protocol reported in Table 1.
+            Values are percentage points. CrossTask uses HowTo100M features under the PDPP setting
+            for the dagger-marked rows in the paper’s main table.
           </p>
+        </div>
+
+        <div class="headline-results">
+          <article data-reveal>
+            <p>CrossTask · T=3 · SR</p>
+            <strong>40.45</strong>
+            <span><b>+1.52</b> over SCHEMA in Table 1</span>
+          </article>
+          <article data-reveal>
+            <p>CrossTask · T=3 · mAcc</p>
+            <strong>67.19</strong>
+            <span><b>+2.45</b> over KEPP in Table 1</span>
+          </article>
+          <article data-reveal>
+            <p>CrossTask · main table</p>
+            <strong>3</strong>
+            <span>best SR results across <b>T=3–5</b></span>
+          </article>
         </div>
 
         <div class="results-grid">
@@ -384,7 +331,7 @@
               </div>
               <span>Higher is better</span>
             </div>
-            <section class="table-wrap" aria-label="CrossTask Success Rate table; scroll horizontally to compare all horizons" tabindex="0">
+            <div class="table-wrap">
               <table>
                 <caption class="sr-only">CrossTask Success Rate comparison across prediction horizons</caption>
                 <thead>
@@ -399,11 +346,11 @@
                 <tbody>
                   <tr><th scope="row">PDPP</th><td>37.20</td><td>21.48</td><td>13.45</td><td>8.41</td></tr>
                   <tr><th scope="row">KEPP</th><td>38.12</td><td>24.15</td><td>14.20</td><td>9.27</td></tr>
-                  <tr><th scope="row">SCHEMA</th><td>38.93</td><td>24.50</td><td>14.75</td><td class="best"><span class="sr-only">Best result: </span>10.53</td></tr>
-                  <tr class="mtid-row"><th scope="row">MTID</th><td class="best"><span class="sr-only">Best result: </span>40.45</td><td class="best"><span class="sr-only">Best result: </span>24.76</td><td class="best"><span class="sr-only">Best result: </span>15.26</td><td>10.30</td></tr>
+                  <tr><th scope="row">SCHEMA</th><td>38.93</td><td>24.50</td><td>14.75</td><td class="best">10.53</td></tr>
+                  <tr class="mtid-row"><th scope="row">MTID</th><td class="best">40.45</td><td class="best">24.76</td><td class="best">15.26</td><td>10.30</td></tr>
                 </tbody>
               </table>
-            </section>
+            </div>
             <p class="table-note">
               MTID leads at T=3–5. At T=6, SCHEMA reports 10.53 versus MTID’s 10.30.
             </p>
@@ -441,18 +388,17 @@
           </article>
         </div>
 
-        <p class="same-setting-title">Same-setting gains over PDPP · CrossTask T=3</p>
-        <div class="same-setting" role="group" data-reveal aria-label="Same-setting gains over PDPP on CrossTask at T equals 3">
+        <div class="same-setting" data-reveal>
           <div>
-            <p>Success Rate</p>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
             <strong>+3.25 <small>SR</small></strong>
           </div>
           <div>
-            <p>Mean Accuracy</p>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
             <strong>+2.52 <small>mAcc</small></strong>
           </div>
           <div>
-            <p>Mean IoU</p>
+            <p>Same-setting gain over PDPP · CrossTask T=3</p>
             <strong>+2.60 <small>mIoU</small></strong>
           </div>
         </div>
@@ -464,7 +410,7 @@
         <div class="section-heading split-heading" data-reveal>
           <div>
             <p class="eyebrow">Ablations</p>
-            <h2 id="ablations-title">Controlled ablations</h2>
+            <h2 id="ablations-title">Three questions, tested separately.</h2>
           </div>
           <p>
             The experiments isolate what to interpolate, when to apply the task mask, and how to
@@ -478,7 +424,7 @@
               <span>01</span>
               <div>
                 <p>Interpolation design · T=3</p>
-                <h3>Component ablation</h3>
+                <h3>Every module contributes</h3>
               </div>
             </div>
             <dl class="metric-list">
@@ -520,10 +466,10 @@
           </article>
         </div>
 
-        <aside class="uncertainty-callout" aria-labelledby="uncertainty-title" data-reveal>
+        <aside class="uncertainty-callout" data-reveal>
           <div>
             <p class="eyebrow">Long-horizon uncertainty · CrossTask T=6</p>
-            <h3 id="uncertainty-title">Uncertainty metrics at T=6</h3>
+            <h3>More modes, better calibrated.</h3>
             <p>
               Against the deterministic and noise baselines used in the paper, MTID provides the
               strongest reported uncertainty results for this CrossTask setting.
@@ -539,7 +485,7 @@
       </div>
     </section>
 
-    <section class="section section-tinted benchmarks-section" id="scope" aria-labelledby="benchmarks-title">
+    <section class="section section-tinted benchmarks-section" id="benchmarks" aria-labelledby="benchmarks-title">
       <div class="shell">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Benchmarks &amp; scope</p>
@@ -609,27 +555,33 @@
             <p class="eyebrow">Resources</p>
             <h2 id="resources-title">Paper, code, and data.</h2>
           </div>
-          <p>Links to the paper, its main implementation repository, processed features, and citation.</p>
+          <p>Everything needed to read the work, inspect the implementation, and prepare the benchmark features.</p>
         </div>
 
         <div class="resource-grid">
           <a href="https://openreview.net/forum?id=HnpDHiItd2" target="_blank" rel="noopener noreferrer" data-reveal>
-            <div class="resource-card-top"><span class="resource-icon" aria-hidden="true"><svg class="icon"><use href="#icon-file"></use></svg></span><svg class="icon resource-arrow" aria-hidden="true"><use href="#icon-external"></use></svg></div>
-            <span class="resource-type">Paper</span>
+            <span>Paper</span>
             <strong>OpenReview</strong>
             <small>Peer-reviewed ICLR 2025 paper</small>
+            <i aria-hidden="true">↗</i>
           </a>
-          <a href="https://github.com/WiserZhou/MTID" target="_blank" rel="noopener noreferrer" data-reveal>
-            <div class="resource-card-top"><span class="resource-icon" aria-hidden="true"><svg class="icon"><use href="#icon-code"></use></svg></span><svg class="icon resource-arrow" aria-hidden="true"><use href="#icon-external"></use></svg></div>
-            <span class="resource-type">Paper-linked implementation</span>
-            <strong>WiserZhou / MTID</strong>
-            <small>Repository referenced by the manuscript</small>
+          <a href="https://github.com/YuanKJing/_MTID_" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Code</span>
+            <strong>PyTorch implementation</strong>
+            <small>Co-author maintained repository</small>
+            <i aria-hidden="true">↗</i>
           </a>
           <a href="https://huggingface.co/datasets/WiserZhou/ProcedurePlanning/tree/main" target="_blank" rel="noopener noreferrer" data-reveal>
-            <div class="resource-card-top"><span class="resource-icon" aria-hidden="true"><svg class="icon"><use href="#icon-data"></use></svg></span><svg class="icon resource-arrow" aria-hidden="true"><use href="#icon-external"></use></svg></div>
-            <span class="resource-type">Processed data</span>
-            <strong>CrossTask, COIN, and NIV</strong>
-            <small>Features used by the released implementation</small>
+            <span>Data</span>
+            <strong>Processed features</strong>
+            <small>CrossTask, COIN, and NIV</small>
+            <i aria-hidden="true">↗</i>
+          </a>
+          <a href="https://github.com/WiserZhou/MTID" target="_blank" rel="noopener noreferrer" data-reveal>
+            <span>Primary release</span>
+            <strong>Paper-referenced code</strong>
+            <small>Implementation linked in the manuscript</small>
+            <i aria-hidden="true">↗</i>
           </a>
         </div>
       </div>
@@ -639,7 +591,7 @@
       <div class="shell citation-grid">
         <div data-reveal>
           <p class="eyebrow eyebrow-light">Citation</p>
-          <h2 id="citation-title">Citation</h2>
+          <h2 id="citation-title">Build on MTID.</h2>
           <p>If this work supports your research, please cite the ICLR 2025 paper.</p>
         </div>
 

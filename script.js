@@ -6,119 +6,45 @@ const copyStatus = document.querySelector('#copy-status');
 const bibtex = document.querySelector('#bibtex');
 const year = document.querySelector('#year');
 const mobileQuery = window.matchMedia('(max-width: 760px)');
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const setMenuOpen = (isOpen) => {
   navToggle?.setAttribute('aria-expanded', String(isOpen));
-  navToggle?.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
   navLinks?.classList.toggle('is-open', isOpen);
   document.body.classList.toggle('nav-open', isOpen && mobileQuery.matches);
 };
 
-setMenuOpen(false);
-
 navToggle?.addEventListener('click', () => {
   const isOpen = navToggle.getAttribute('aria-expanded') !== 'true';
   setMenuOpen(isOpen);
-
   if (isOpen) {
-    window.requestAnimationFrame(() => navLinks?.querySelector('a')?.focus());
+    navLinks?.querySelector('a')?.focus();
   }
 });
 
-const sectionLinks = [...(navLinks?.querySelectorAll('a[href^="#"]') || [])];
-
-const setCurrentSection = (sectionId) => {
-  sectionLinks.forEach((link) => {
-    if (link.hash === `#${sectionId}`) {
-      link.setAttribute('aria-current', 'location');
-    } else {
-      link.removeAttribute('aria-current');
-    }
-  });
-};
-
-sectionLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    setCurrentSection(link.hash.slice(1));
-    setMenuOpen(false);
-  });
-});
-
-navLinks?.querySelectorAll('a:not([href^="#"])').forEach((link) => {
+navLinks?.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => setMenuOpen(false));
 });
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
     setMenuOpen(false);
-    navToggle.focus();
+    navToggle?.focus();
   }
 });
 
-document.addEventListener('pointerdown', (event) => {
-  if (
-    mobileQuery.matches &&
-    navToggle?.getAttribute('aria-expanded') === 'true' &&
-    !header?.contains(event.target)
-  ) {
+mobileQuery.addEventListener('change', (event) => {
+  if (!event.matches) {
     setMenuOpen(false);
   }
 });
-
-document.addEventListener('focusin', (event) => {
-  if (
-    mobileQuery.matches &&
-    navToggle?.getAttribute('aria-expanded') === 'true' &&
-    !header?.contains(event.target)
-  ) {
-    setMenuOpen(false);
-  }
-});
-
-const handleViewportChange = (event) => {
-  if (!event.matches) setMenuOpen(false);
-};
-
-if (mobileQuery.addEventListener) {
-  mobileQuery.addEventListener('change', handleViewportChange);
-} else {
-  mobileQuery.addListener(handleViewportChange);
-}
 
 const updateHeader = () => {
   header?.classList.toggle('is-scrolled', window.scrollY > 12);
 };
 
-let scrollFramePending = false;
-window.addEventListener(
-  'scroll',
-  () => {
-    if (scrollFramePending) return;
-    scrollFramePending = true;
-    window.requestAnimationFrame(() => {
-      updateHeader();
-      scrollFramePending = false;
-    });
-  },
-  { passive: true },
-);
 updateHeader();
-
-const trackedSections = sectionLinks
-  .map((link) => document.querySelector(link.hash))
-  .filter(Boolean);
-
-if ('IntersectionObserver' in window && trackedSections.length) {
-  const sectionObserver = new IntersectionObserver(
-    (entries) => {
-      const visibleEntry = entries.find((entry) => entry.isIntersecting);
-      if (visibleEntry) setCurrentSection(visibleEntry.target.id);
-    },
-    { rootMargin: '-18% 0px -68% 0px', threshold: 0 },
-  );
-
-  trackedSections.forEach((section) => sectionObserver.observe(section));
-}
+window.addEventListener('scroll', updateHeader, { passive: true });
 
 const fallbackCopy = (text) => {
   const area = document.createElement('textarea');
@@ -130,7 +56,6 @@ const fallbackCopy = (text) => {
   let copied = false;
 
   try {
-    area.focus();
     area.select();
     copied = document.execCommand('copy');
   } catch {
@@ -143,9 +68,6 @@ const fallbackCopy = (text) => {
   return copied;
 };
 
-let copyResetTimer;
-const copyDefaultLabel = 'Copy';
-
 copyButton?.addEventListener('click', async () => {
   const text = bibtex?.textContent?.trim() || '';
   let copied = false;
@@ -157,7 +79,7 @@ copyButton?.addEventListener('click', async () => {
     copied = fallbackCopy(text);
   }
 
-  window.clearTimeout(copyResetTimer);
+  const originalLabel = copyButton.textContent;
   copyButton.textContent = copied ? 'Copied' : 'Select text';
 
   if (copyStatus) {
@@ -166,11 +88,33 @@ copyButton?.addEventListener('click', async () => {
       : 'Automatic copy was unavailable. Select the BibTeX manually.';
   }
 
-  copyResetTimer = window.setTimeout(() => {
-    copyButton.textContent = copyDefaultLabel;
+  window.setTimeout(() => {
+    copyButton.textContent = originalLabel;
   }, 1800);
 });
 
 if (year) {
   year.textContent = String(new Date().getFullYear());
+}
+
+const revealElements = [...document.querySelectorAll('[data-reveal]')];
+
+if (!reducedMotionQuery.matches && 'IntersectionObserver' in window) {
+  revealElements.forEach((element) => element.classList.add('will-reveal'));
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.08,
+    },
+  );
+
+  revealElements.forEach((element) => revealObserver.observe(element));
 }
