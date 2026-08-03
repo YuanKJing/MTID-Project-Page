@@ -41,8 +41,12 @@ jobs:
           test -f _site/index.html
           test -f _site/styles.css
           test -f _site/script.js
+          test -f _site/assets/favicon.svg
           test -f _site/assets/og-mtid.png
           test -f _site/assets/mtid-overview.png
+          test -f _site/assets/mtid-overview.webp
+          test -f _site/assets/fonts/AtkinsonHyperlegible-Regular.woff2
+          test -f _site/assets/fonts/CrimsonPro-Variable.woff2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
